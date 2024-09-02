@@ -3,7 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35209.166
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingPlatform.Domain", "RecipeSharingPlatform.Domain\RecipeSharingPlatform.Domain.csproj", "{AC16D61B-4E85-43E6-B90E-3F4033EC32DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingPlatform.Application", "RecipeSharingPlatform.Application\RecipeSharingPlatform.Application.csproj", "{1ABA06FF-4831-4457-8AAA-F9E15E4A4C3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingPlatform.Infrastructure", "RecipeSharingPlatform.Infrastructure\RecipeSharingPlatform.Infrastructure.csproj", "{CA05F3F9-03AF-4930-A23E-93326417B104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingPlatform.Presentation", "RecipeSharingPlatform.Presentation\RecipeSharingPlatform.Presentation.csproj", "{292B174F-2D71-4D5B-A06D-D2E3298C0074}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC16D61B-4E85-43E6-B90E-3F4033EC32DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC16D61B-4E85-43E6-B90E-3F4033EC32DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC16D61B-4E85-43E6-B90E-3F4033EC32DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC16D61B-4E85-43E6-B90E-3F4033EC32DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ABA06FF-4831-4457-8AAA-F9E15E4A4C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABA06FF-4831-4457-8AAA-F9E15E4A4C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABA06FF-4831-4457-8AAA-F9E15E4A4C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABA06FF-4831-4457-8AAA-F9E15E4A4C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA05F3F9-03AF-4930-A23E-93326417B104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA05F3F9-03AF-4930-A23E-93326417B104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA05F3F9-03AF-4930-A23E-93326417B104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA05F3F9-03AF-4930-A23E-93326417B104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{292B174F-2D71-4D5B-A06D-D2E3298C0074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{292B174F-2D71-4D5B-A06D-D2E3298C0074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{292B174F-2D71-4D5B-A06D-D2E3298C0074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{292B174F-2D71-4D5B-A06D-D2E3298C0074}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
