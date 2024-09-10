@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RecipeSharingPlatform.Application.Common.Models;
+using RecipeSharingPlatform.Application.Common.Utility;
 using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
@@ -110,7 +111,7 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
                 await _userManager.CreateAsync(user, registerModel.Password);
 
                 // assign role
-                await _userManager.AddToRoleAsync(user, registerModel.RoleName);
+                await _userManager.AddToRoleAsync(user, SD.Role_Chef);
             }
             catch (Exception ex)
             {
