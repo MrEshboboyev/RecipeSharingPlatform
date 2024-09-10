@@ -5,8 +5,8 @@ namespace RecipeSharingPlatform.Application.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<string> Login(LoginModel loginModel);
-        Task<string> Register(RegisterModel registerModel);
+        Task<string> LoginAsync(LoginModel loginModel);
+        Task RegisterAsync(RegisterModel registerModel);
         Task<string> GenerateJwtToken(ApplicationUser user, IEnumerable<string> roles);
     }
 }
