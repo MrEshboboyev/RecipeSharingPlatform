@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RecipeSharingPlatform.Application.Services.Interfaces;
@@ -47,6 +48,12 @@ builder.Services.AddSwaggerGen(
             }
         );
     });
+
+// add Db connection
+builder.Services.AddDbContext<AppDbContext>(option =>
+{
+    option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 // adding identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
