@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using RecipeSharingPlatform.Application.Services.Interfaces;
+using RecipeSharingPlatform.Domain.Entities;
+using RecipeSharingPlatform.Infrastructure.Data;
 using RecipeSharingPlatform.Infrastructure.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// adding identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 // adding lifetime for services
 builder.Services.AddScoped<IAuthService, AuthService>();
