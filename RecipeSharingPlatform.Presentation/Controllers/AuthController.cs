@@ -16,7 +16,7 @@ namespace RecipeSharingPlatform.Presentation.Controllers
             _authService = authService;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginModel loginModel)
         {
             if (!ModelState.IsValid)
@@ -32,7 +32,7 @@ namespace RecipeSharingPlatform.Presentation.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel registerModel)
         {
             if (!ModelState.IsValid) 
