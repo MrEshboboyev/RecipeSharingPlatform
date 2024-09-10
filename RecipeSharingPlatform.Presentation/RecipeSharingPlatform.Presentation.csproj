@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RecipeSharingPlatform.Application\RecipeSharingPlatform.Application.csproj" />
     <ProjectReference Include="..\RecipeSharingPlatform.Infrastructure\RecipeSharingPlatform.Infrastructure.csproj" />
   </ItemGroup>
