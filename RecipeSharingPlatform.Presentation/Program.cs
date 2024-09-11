@@ -8,6 +8,7 @@ using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
 using RecipeSharingPlatform.Infrastructure.Data;
 using RecipeSharingPlatform.Infrastructure.Implementations;
+using RecipeSharingPlatform.Infrastructure.Repositories;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -85,6 +86,8 @@ builder.Services.AddAuthentication(options =>
 // adding lifetime for services
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IRecipeService, RecipeService>();
 
 var app = builder.Build();
 
