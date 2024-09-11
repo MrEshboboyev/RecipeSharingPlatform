@@ -2,7 +2,7 @@
 {
     public class RecipeDeleteDTO
     {
-        public int RecipeId { get; set; }
+        public Guid RecipeId { get; set; }
         public string ChefId { get; set; }
     }
 }

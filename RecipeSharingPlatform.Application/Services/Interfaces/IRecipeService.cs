@@ -6,7 +6,7 @@ namespace RecipeSharingPlatform.Application.Services.Interfaces
     public interface IRecipeService
     {
         Task<IEnumerable<Recipe>> GetAllRecipesAsync();
-        Task<IEnumerable<Recipe>> GetAllRecipesByUserAsync();
+        Task<IEnumerable<Recipe>> GetAllRecipesByChefAsync(string chefId);
         Task CreateRecipeAsync(RecipeCreateDTO recipeCreateDTO);  
         Task UpdateRecipeAsync(RecipeUpdateDTO recipeUpdateDTO);  
         Task DeleteRecipeAsync(RecipeDeleteDTO recipeDeleteDTO);  
