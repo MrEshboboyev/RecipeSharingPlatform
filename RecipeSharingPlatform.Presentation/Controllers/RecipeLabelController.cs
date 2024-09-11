@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RecipeSharingPlatform.Application.Common.Models;
 using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
-using RecipeSharingPlatform.Domain.Entities;
-using RecipeSharingPlatform.Infrastructure.Implementations;
 
 namespace RecipeSharingPlatform.Presentation.Controllers
 {
@@ -13,7 +10,7 @@ namespace RecipeSharingPlatform.Presentation.Controllers
     [ApiController]
     public class RecipeLabelController : ControllerBase
     {
-        // inject IRecipeLabelService
+        // inject IRecipeLabelDTOService
         private readonly IRecipeLabelService _recipeLabelService;
 
         public RecipeLabelController(IRecipeLabelService recipeLabelService)
@@ -50,15 +47,15 @@ namespace RecipeSharingPlatform.Presentation.Controllers
         #endregion
 
         [HttpPost("create-label")]
-        public async Task<IActionResult> CreateLabel([FromBody] RecipeLabel recipeLabel)
+        public async Task<IActionResult> CreateLabel([FromBody] RecipeLabelDTO recipeLabelDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                await _recipeLabelService.CreateLabelAsync(recipeLabel);
-                return Ok($"Recipe Label - {recipeLabel.Name} : Created successfully");
+                await _recipeLabelService.CreateLabelAsync(recipeLabelDTO);
+                return Ok($"Recipe Label - {recipeLabelDTO.Name} : Created successfully");
             }
             catch (Exception ex)
             {
@@ -67,15 +64,15 @@ namespace RecipeSharingPlatform.Presentation.Controllers
         }
 
         [HttpPut("update-label")]
-        public async Task<IActionResult> UpdateLabel(Guid labelId, [FromBody] RecipeLabel recipeLabel)
+        public async Task<IActionResult> UpdateLabel(Guid labelId, [FromBody] RecipeLabelDTO recipeLabelDTO)
         {
-            if (!ModelState.IsValid || !labelId.Equals(recipeLabel.Id))
+            if (!ModelState.IsValid || !labelId.Equals(recipeLabelDTO.Id))
                 return BadRequest("Error with entered values!");
 
             try
             {
-                await _recipeLabelService.UpdateLabelAsync(recipeLabel);
-                return Ok($"Recipe Label - {recipeLabel.Name} : Updated successfully");
+                await _recipeLabelService.UpdateLabelAsync(recipeLabelDTO);
+                return Ok($"Recipe Label - {recipeLabelDTO.Name} : Updated successfully");
             }
             catch (Exception ex)
             {

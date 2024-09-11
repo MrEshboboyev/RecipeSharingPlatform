@@ -1,4 +1,5 @@
 ﻿using RecipeSharingPlatform.Application.Common.Interfaces;
+using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
 
@@ -52,18 +53,18 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
         #endregion
 
 
-        public async Task CreateLabelAsync(RecipeLabel recipeLabel)
+        public async Task CreateLabelAsync(RecipeLabelDTO recipeLabelDTO)
         {
             try
             {
                 var labelExist = _unitOfWork.RecipeLabel.Any(rl =>
-                    rl.Name == recipeLabel.Name);
+                    rl.Name == recipeLabelDTO.Name);
 
                 if (labelExist)
-                    throw new Exception($"Recipe {recipeLabel.Name} already exist!");
+                    throw new Exception($"Recipe {recipeLabelDTO.Name} already exist!");
 
                 // adding
-                _unitOfWork.RecipeLabel.Add(recipeLabel);
+                _unitOfWork.RecipeLabel.Add(new RecipeLabel { Name = recipeLabelDTO.Name});
 
                 // save
                 _unitOfWork.Save();
@@ -74,25 +75,25 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             }
         }
 
-        public async Task UpdateLabelAsync(RecipeLabel recipeLabel)
+        public async Task UpdateLabelAsync(RecipeLabelDTO recipeLabelDTO)
         {
             try
             {
                 // checking new name is exist
                 var labelExist = _unitOfWork.RecipeLabel.Any(rl =>
-                    rl.Name == recipeLabel.Name);
+                    rl.Name == recipeLabelDTO.Name);
 
                 if (labelExist)
-                    throw new Exception($"Recipe {recipeLabel.Name} already exist!");
+                    throw new Exception($"Label {recipeLabelDTO.Name} already exist!");
 
                 var labelFromDb = _unitOfWork.RecipeLabel.Get(rl =>
-                    rl.Id == recipeLabel.Id) ?? throw new Exception("Label not found!");
+                    rl.Id == recipeLabelDTO.Id) ?? throw new Exception("Label not found!");
                
                 // updating field(s)
-                labelFromDb.Name = recipeLabel.Name;
+                labelFromDb.Name = recipeLabelDTO.Name;
 
                 // updating
-                _unitOfWork.RecipeLabel.Update(recipeLabel);
+                _unitOfWork.RecipeLabel.Update(labelFromDb);
 
                 // save
                 _unitOfWork.Save();

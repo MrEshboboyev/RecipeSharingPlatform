@@ -1,4 +1,5 @@
-﻿using RecipeSharingPlatform.Domain.Entities;
+﻿using RecipeSharingPlatform.Application.DTOs;
+using RecipeSharingPlatform.Domain.Entities;
 
 namespace RecipeSharingPlatform.Application.Services.Interfaces
 {
@@ -7,8 +8,8 @@ namespace RecipeSharingPlatform.Application.Services.Interfaces
         Task<IEnumerable<RecipeLabel>> GetAllLabelsAsync();
         Task<IEnumerable<Recipe>> GetLabelRecipesAsync(Guid labelId);
         Task<RecipeLabel> GetLabelByIdAsync(Guid labelId);
-        Task CreateLabelAsync(RecipeLabel recipeLabel);  
-        Task UpdateLabelAsync(RecipeLabel recipeLabel);  
+        Task CreateLabelAsync(RecipeLabelDTO recipeLabelDTO);  
+        Task UpdateLabelAsync(RecipeLabelDTO recipeLabelDTO);  
         Task DeleteLabelAsync(Guid labelId);  
     }
 }
