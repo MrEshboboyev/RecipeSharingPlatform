@@ -2,6 +2,8 @@
 {
     public interface IUnitOfWork
     {
+        IRecipeRepository Recipe { get; }
+
         void Save();
     }
 }

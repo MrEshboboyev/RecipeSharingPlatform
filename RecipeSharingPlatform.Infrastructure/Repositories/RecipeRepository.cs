@@ -1,22 +1,20 @@
 ﻿using RecipeSharingPlatform.Application.Common.Interfaces;
+using RecipeSharingPlatform.Domain.Entities;
 using RecipeSharingPlatform.Infrastructure.Data;
 
 namespace RecipeSharingPlatform.Infrastructure.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class RecipeRepository : Repository<Recipe>, IRecipeRepository
     {
         private readonly AppDbContext _db;
-        public IRecipeRepository Recipe { get; private set; }
-
-        public UnitOfWork(AppDbContext db)
+        public RecipeRepository(AppDbContext db) : base(db)
         {
             _db = db;
-            Recipe = new RecipeRepository(db);
         }
 
-        public void Save()
+        public void Update(Recipe recipe)
         {
-            _db.SaveChanges();
+            _db.Recipes.Update(recipe);
         }
     }
 }
