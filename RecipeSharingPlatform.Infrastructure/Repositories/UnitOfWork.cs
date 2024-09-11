@@ -7,11 +7,15 @@ namespace RecipeSharingPlatform.Infrastructure.Repositories
     {
         private readonly AppDbContext _db;
         public IRecipeRepository Recipe { get; private set; }
+        public IRecipeImageRepository RecipeImage { get; private set; }
+        public IRecipeLabelRepository RecipeLabel { get; private set; }
 
         public UnitOfWork(AppDbContext db)
         {
             _db = db;
             Recipe = new RecipeRepository(db);
+            RecipeImage = new RecipeImageRepository(db);
+            RecipeLabel = new RecipeLabelRepository(db);
         }
 
         public void Save()
