@@ -1,5 +1,4 @@
 ﻿using RecipeSharingPlatform.Application.Common.Interfaces;
-using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
 
