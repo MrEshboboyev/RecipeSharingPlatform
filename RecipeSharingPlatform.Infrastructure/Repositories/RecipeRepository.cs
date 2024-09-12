@@ -26,9 +26,6 @@ namespace RecipeSharingPlatform.Infrastructure.Repositories
                                     .FirstOrDefaultAsync(r => r.Id == recipeId);
             var labelFromDb = await _db.RecipeLabels.FirstOrDefaultAsync(rl => rl.Id == labelId);
 
-            if (recipeFromDb == null || labelFromDb == null)
-                throw new Exception("Recipe/Label not found");
-
             // attach label to recipe
             recipeFromDb.Labels.Add(labelFromDb);
 

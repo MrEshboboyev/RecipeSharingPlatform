@@ -72,7 +72,7 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             try
             {
                 var recipeFromDb = _unitOfWork.Recipe.Get(r =>
-                    r.ChefId == recipeUpdateDTO.ChefId && 
+                    r.ChefId == recipeUpdateDTO.ChefId &&
                     r.Id == recipeUpdateDTO.RecipeId);
 
                 // not found, throw exception
@@ -113,6 +113,35 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
                 _unitOfWork.Recipe.Remove(recipeFromDb);
 
                 // save
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        // Add Label to Recipe
+        public async Task AddLabelToRecipeAsync(RecipeAddLabelDTO addLabelDTO)
+        {
+            try
+            {
+                // found and check if this recipe belongs to this user
+                var recipeFromDb = _unitOfWork.Recipe.Get(r =>
+                    r.Id == addLabelDTO.RecipeId &&
+                    r.ChefId == addLabelDTO.ChefId);
+
+                // get label
+                var labelFromDb = _unitOfWork.RecipeLabel.Get(rl =>
+                    rl.Id == addLabelDTO.RecipeId);
+
+                if (recipeFromDb == null || labelFromDb == null)
+                    throw new Exception("Recipe/Label not found");
+
+                // attach label to recipe
+                await _unitOfWork.Recipe.AddLabelToRecipeAsync(recipeFromDb.Id, 
+                    labelFromDb.Id);
+
                 _unitOfWork.Save();
             }
             catch (Exception ex)
