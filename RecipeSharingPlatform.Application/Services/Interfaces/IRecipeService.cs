@@ -7,6 +7,7 @@ namespace RecipeSharingPlatform.Application.Services.Interfaces
     {
         Task<IEnumerable<Recipe>> GetAllRecipesAsync();
         Task<IEnumerable<Recipe>> GetAllRecipesByChefAsync(string chefId);
+        Task AddLabelToRecipe(RecipeAddLabelDTO addLabelDTO);
         Task CreateRecipeAsync(RecipeCreateDTO recipeCreateDTO);  
         Task UpdateRecipeAsync(RecipeUpdateDTO recipeUpdateDTO);  
         Task DeleteRecipeAsync(RecipeDeleteDTO recipeDeleteDTO);  
