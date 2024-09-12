@@ -45,8 +45,8 @@ namespace RecipeSharingPlatform.Presentation.Controllers
             }
         }
 
-        [HttpGet("get-label-with-recipes")]
-        public async Task<IActionResult> GetLabelWithRecipes(Guid labelId)
+        [HttpGet("get-label-recipes")]
+        public async Task<IActionResult> GetLabelRecipes(Guid labelId)
         {
             try
             {

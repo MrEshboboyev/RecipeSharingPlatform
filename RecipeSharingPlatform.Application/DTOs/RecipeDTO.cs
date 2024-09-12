@@ -9,6 +9,6 @@
         public string Instructions { get; set; }
         public DateTime PublicationDate { get; set; }
         public string ChefId { get; set; }
-        public List<LabelDto> Labels { get; set; }
+        public List<LabelDTO> Labels { get; set; }
     }
 }

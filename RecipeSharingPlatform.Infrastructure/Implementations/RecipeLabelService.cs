@@ -1,4 +1,5 @@
-﻿using RecipeSharingPlatform.Application.Common.Interfaces;
+﻿using AutoMapper;
+using RecipeSharingPlatform.Application.Common.Interfaces;
 using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
@@ -9,10 +10,13 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
     {
         // inject IUnitOfWork
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public RecipeLabelService(IUnitOfWork unitOfWork)
+        public RecipeLabelService(IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         #region Get Labels
         public async Task<IEnumerable<RecipeLabel>> GetAllLabelsAsync()
@@ -29,21 +33,13 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
 
         public async Task<IEnumerable<RecipeDTO>> GetLabelRecipesAsync(Guid labelId)
         {
-            var label = await _unitOfWork.RecipeLabel.GetLabelWithRecipesAsync(labelId);
+            var labelFromDb = await _unitOfWork.RecipeLabel.GetLabelWithRecipesAsync(labelId);
 
-            if (label == null)
+            if (labelFromDb == null)
                 throw new Exception("Label not found");
 
-            return label.Recipes.Select(r => new RecipeDTO
-            {
-                Id = r.Id,
-                Title = r.Title,
-                Labels = r.Labels.Select(l => new LabelDto
-                {
-                    Id = l.Id,
-                    Name = l.Name
-                }).ToList()
-            }).ToList();
+            // Use AutoMapper to project to DTO
+            return _mapper.Map<IEnumerable<RecipeDTO>>(labelFromDb.Recipes);
         }
 
         public async Task<RecipeLabel> GetLabelByIdAsync(Guid labelId)
