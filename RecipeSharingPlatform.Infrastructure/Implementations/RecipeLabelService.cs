@@ -3,6 +3,7 @@ using RecipeSharingPlatform.Application.Common.Interfaces;
 using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
+using System.Collections.Generic;
 
 namespace RecipeSharingPlatform.Infrastructure.Implementations
 {
@@ -19,11 +20,11 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             _mapper = mapper;
         }
         #region Get Labels
-        public async Task<IEnumerable<RecipeLabel>> GetAllLabelsAsync()
+        public async Task<IEnumerable<LabelDTO>> GetAllLabelsAsync()
         {
             try
             {
-                return _unitOfWork.RecipeLabel.GetAll(includeProperties: "Recipes");
+                return _mapper.Map<IEnumerable<LabelDTO>>(_unitOfWork.RecipeLabel.GetAll(includeProperties: "Recipes"));
             }
             catch (Exception ex)
             {
@@ -42,11 +43,11 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             return _mapper.Map<IEnumerable<RecipeDTO>>(labelFromDb.Recipes);
         }
 
-        public async Task<RecipeLabel> GetLabelByIdAsync(Guid labelId)
+        public async Task<LabelDTO> GetLabelByIdAsync(Guid labelId)
         {
             try
             {
-                return _unitOfWork.RecipeLabel.Get(rl => rl.Id == labelId, includeProperties: "Recipes");
+                return _mapper.Map<LabelDTO>(_unitOfWork.RecipeLabel.Get(rl => rl.Id == labelId, includeProperties: "Recipes"));
             }
             catch (Exception ex)
             {

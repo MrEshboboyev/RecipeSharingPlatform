@@ -1,7 +1,9 @@
-﻿using RecipeSharingPlatform.Application.Common.Interfaces;
+﻿using AutoMapper;
+using RecipeSharingPlatform.Application.Common.Interfaces;
 using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
+using System.Collections.Generic;
 
 namespace RecipeSharingPlatform.Infrastructure.Implementations
 {
@@ -9,17 +11,20 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
     {
         // inject IUnitOfWork
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public RecipeService(IUnitOfWork unitOfWork)
+        public RecipeService(IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         #region Get Recipes
-        public async Task<IEnumerable<Recipe>> GetAllRecipesAsync()
+        public async Task<IEnumerable<RecipeDTO>> GetAllRecipesAsync()
         {
             try
             {
-                return _unitOfWork.Recipe.GetAll(includeProperties: "Labels");
+                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetAll(includeProperties: "Labels"));
             }
             catch (Exception ex)
             {
@@ -27,11 +32,11 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             }
         }
 
-        public async Task<IEnumerable<Recipe>> GetAllRecipesByChefAsync(string chefId)
+        public async Task<IEnumerable<RecipeDTO>> GetAllRecipesByChefAsync(string chefId)
         {
             try
             {
-                return _unitOfWork.Recipe.GetAll(r => r.ChefId == chefId, includeProperties: "Labels");
+                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetAll(r => r.ChefId == chefId, includeProperties: "Labels"));
             }
             catch (Exception ex)
             {
