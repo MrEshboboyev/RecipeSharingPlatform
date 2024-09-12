@@ -126,5 +126,28 @@ namespace RecipeSharingPlatform.Presentation.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        // Attach label to Recipe
+        [HttpPost("add-label-to-recipe")]
+        public async Task<IActionResult> AddLabelToRecipe(Guid recipeId, Guid labelId)
+        {
+            try
+            {
+                RecipeAddLabelDTO recipeAddLabelDTO = new()
+                {
+                    ChefId = GetChefId(),
+                    LabelId = labelId,
+                    RecipeId = recipeId
+                };
+
+                await _recipeService.AddLabelToRecipeAsync(recipeAddLabelDTO);
+
+                return Ok("Add Label to Recipe : Success!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

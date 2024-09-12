@@ -133,7 +133,7 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
 
                 // get label
                 var labelFromDb = _unitOfWork.RecipeLabel.Get(rl =>
-                    rl.Id == addLabelDTO.RecipeId);
+                    rl.Id == addLabelDTO.LabelId);
 
                 if (recipeFromDb == null || labelFromDb == null)
                     throw new Exception("Recipe/Label not found");
