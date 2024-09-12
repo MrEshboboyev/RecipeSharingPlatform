@@ -83,6 +83,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// configure AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // adding lifetime for services
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IAuthService, AuthService>();
