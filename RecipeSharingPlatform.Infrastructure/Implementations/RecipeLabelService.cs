@@ -27,23 +27,23 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             }
         }
 
-        public async Task<RecipeLabel> GetLabelWithRecipesAsync(Guid labelId)
+        public async Task<IEnumerable<RecipeDTO>> GetLabelRecipesAsync(Guid labelId)
         {
-            try
-            {
-                // get label
-                var labelFromDb = _unitOfWork.RecipeLabel.Get(rl =>
-                    rl.Id == labelId);
+            var label = await _unitOfWork.RecipeLabel.GetLabelWithRecipesAsync(labelId);
 
-                return labelFromDb == null
-                    ? throw new Exception("Label not found!")
-                    : await _unitOfWork.RecipeLabel.GetLabelWithRecipesAsync
-                    (labelFromDb.Id);
-            }
-            catch (Exception ex)
+            if (label == null)
+                throw new Exception("Label not found");
+
+            return label.Recipes.Select(r => new RecipeDTO
             {
-                throw new Exception(ex.Message);
-            }
+                Id = r.Id,
+                Title = r.Title,
+                Labels = r.Labels.Select(l => new LabelDto
+                {
+                    Id = l.Id,
+                    Name = l.Name
+                }).ToList()
+            }).ToList();
         }
 
         public async Task<RecipeLabel> GetLabelByIdAsync(Guid labelId)

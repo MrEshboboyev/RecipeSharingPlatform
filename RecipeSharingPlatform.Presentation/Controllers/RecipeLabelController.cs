@@ -50,7 +50,7 @@ namespace RecipeSharingPlatform.Presentation.Controllers
         {
             try
             {
-                return Ok(await _recipeLabelService.GetLabelWithRecipesAsync(labelId));
+                return Ok(await _recipeLabelService.GetLabelRecipesAsync(labelId));
             }
             catch (Exception ex)
             {

@@ -6,7 +6,7 @@ namespace RecipeSharingPlatform.Application.Services.Interfaces
     public interface IRecipeLabelService
     {
         Task<IEnumerable<RecipeLabel>> GetAllLabelsAsync();
-        Task<RecipeLabel> GetLabelWithRecipesAsync(Guid labelId);
+        Task<IEnumerable<RecipeDTO>> GetLabelRecipesAsync(Guid labelId);
         Task<RecipeLabel> GetLabelByIdAsync(Guid labelId);
         Task CreateLabelAsync(RecipeLabelDTO recipeLabelDTO);  
         Task UpdateLabelAsync(RecipeLabelDTO recipeLabelDTO);  
