@@ -44,6 +44,19 @@ namespace RecipeSharingPlatform.Presentation.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("get-label-with-recipes")]
+        public async Task<IActionResult> GetLabelWithRecipes(Guid labelId)
+        {
+            try
+            {
+                return Ok(await _recipeLabelService.GetLabelWithRecipesAsync(labelId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         #endregion
 
         [HttpPost("create-label")]
