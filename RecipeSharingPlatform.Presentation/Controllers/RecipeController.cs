@@ -25,6 +25,7 @@ namespace RecipeSharingPlatform.Presentation.Controllers
         #endregion
 
         #region Get Recipes
+        [AllowAnonymous]
         [HttpGet("get-all-recipes")]
         public async Task<IActionResult> GetAllRecipes()
         {
@@ -38,6 +39,7 @@ namespace RecipeSharingPlatform.Presentation.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("get-chef-recipes")]
         public async Task<IActionResult> GetChefRecipes()
         {
