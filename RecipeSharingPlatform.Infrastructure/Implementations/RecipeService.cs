@@ -199,7 +199,7 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
         }
 
         // Add Image to Recipe
-        public async Task AddRecipeImageAsync(RecipeAddImageDTO addImageDTO)
+        public async Task AddImageToRecipeAsync(RecipeAddImageDTO addImageDTO)
         {
             try
             {

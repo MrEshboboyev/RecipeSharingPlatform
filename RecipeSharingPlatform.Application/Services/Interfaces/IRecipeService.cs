@@ -15,6 +15,6 @@ namespace RecipeSharingPlatform.Application.Services.Interfaces
         Task AddLabelToRecipeAsync(RecipeAddLabelDTO addLabelDTO);
 
         // working with images
-        Task AddRecipeImageAsync(RecipeAddImageDTO addImageDTO);
+        Task AddImageToRecipeAsync(RecipeAddImageDTO addImageDTO);
     }
 }
