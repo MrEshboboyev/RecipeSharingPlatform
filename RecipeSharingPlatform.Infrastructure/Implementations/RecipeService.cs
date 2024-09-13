@@ -168,5 +168,38 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
                 throw new Exception(ex.Message);
             }
         }
+
+        // Add Image to Recipe
+        public async Task AddRecipeImageAsync(RecipeAddImageDTO addImageDTO)
+        {
+            try
+            {
+                // get recipe by this user
+                var recipeFromDb = _unitOfWork.Recipe.Get(r =>
+                    r.Id == addImageDTO.RecipeId &&
+                    r.ChefId == addImageDTO.ChefId)
+                    ?? throw new Exception("Recipe not found!");
+
+                // recipe is found, prepare recipe image
+                RecipeImage recipeImage = new()
+                {
+                    RecipeId = recipeFromDb.Id,
+                    ImageUrl = addImageDTO.ImageDTO.ImageUrl,
+                    ThumbnailUrl = addImageDTO.ImageDTO.ThumbnailUrl
+                };
+
+                // Add the image to the recipe
+                recipeFromDb.Images.Add(recipeImage);
+
+                // update and save
+                _unitOfWork.Recipe.Update(recipeFromDb);
+
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
