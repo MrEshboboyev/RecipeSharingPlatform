@@ -179,5 +179,27 @@ namespace RecipeSharingPlatform.Presentation.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("add-image-to-recipe")]
+        public async Task<IActionResult> AddImageToRecipe([FromForm] AddImageToRecipeModel addImageToRecipeModel)
+        {
+            try
+            {
+                RecipeAddImageDTO recipeAddImageDTO = new()
+                {
+                    ChefId = GetChefId(),
+                    ImageFile = addImageToRecipeModel.ImageFile,
+                    RecipeId = addImageToRecipeModel.RecipeId
+                };
+
+                await _recipeService.AddImageToRecipeAsync(recipeAddImageDTO);
+
+                return Ok("Add Image to Recipe : Success!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

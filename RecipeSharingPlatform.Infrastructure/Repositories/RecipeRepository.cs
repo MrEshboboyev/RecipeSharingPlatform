@@ -70,6 +70,7 @@ namespace RecipeSharingPlatform.Infrastructure.Repositories
 
             return await query.Include(r => r.Chef)
                             .Include(r => r.Labels)
+                            .Include(r => r.Images)
                             .ToListAsync();
         }
     }

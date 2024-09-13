@@ -27,7 +27,7 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
         {
             try
             {
-                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetAll(includeProperties: "Labels"));
+                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetAll(includeProperties: "Labels,Images"));
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
         {
             try
             {
-                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetAll(r => r.ChefId == chefId, includeProperties: "Labels"));
+                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetAll(r => r.ChefId == chefId, includeProperties: "Labels,Images"));
             }
             catch (Exception ex)
             {
@@ -206,7 +206,8 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
                 // get recipe by this user
                 var recipeFromDb = _unitOfWork.Recipe.Get(r =>
                     r.Id == addImageDTO.RecipeId &&
-                    r.ChefId == addImageDTO.ChefId)
+                    r.ChefId == addImageDTO.ChefId, 
+                    includeProperties: "Images")
                     ?? throw new Exception("Recipe not found!");
 
                 // create recipe image
