@@ -234,5 +234,31 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
                 throw new Exception(ex.Message);
             }
         }
+
+        // Pagination of recipes
+        public async Task<PagedResult<RecipeDTO>> GetPagedRecipesAsync(PaginationParameters paginationParameters)
+        {
+            try
+            {
+                var recipes = await _unitOfWork.Recipe.GetPagedRecipesAsync(paginationParameters);
+                var totalRecipes = _unitOfWork.Recipe.GetAll().Count();
+
+                var pagedResult = new PagedResult<RecipeDTO>
+                {
+                    CurrentPage = paginationParameters.PageNumber,
+                    TotalPages = (int)Math.Ceiling(
+                        (double)totalRecipes / paginationParameters.PageSize),
+                    TotalItems = totalRecipes,
+                    PageSize = paginationParameters.PageSize,
+                    Items = _mapper.Map<List<RecipeDTO>>(recipes)
+                };
+
+                return pagedResult;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
