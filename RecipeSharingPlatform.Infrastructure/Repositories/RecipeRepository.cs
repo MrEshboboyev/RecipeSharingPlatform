@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecipeSharingPlatform.Application.Common.Filters;
 using RecipeSharingPlatform.Application.Common.Interfaces;
+using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Domain.Entities;
 using RecipeSharingPlatform.Infrastructure.Data;
 
@@ -72,6 +73,15 @@ namespace RecipeSharingPlatform.Infrastructure.Repositories
                             .Include(r => r.Labels)
                             .Include(r => r.Images)
                             .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Recipe>> GetPagedRecipesAsync(PaginationParameters paginationParameters)
+        {
+            return await _db.Recipes
+                .OrderBy(r => r.Title)
+                .Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize)
+                .Take(paginationParameters.PageSize)
+                .ToListAsync();
         }
     }
 }
