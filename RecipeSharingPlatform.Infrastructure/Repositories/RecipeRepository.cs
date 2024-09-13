@@ -41,18 +41,19 @@ namespace RecipeSharingPlatform.Infrastructure.Repositories
             // Filter by Keyword
             if (!string.IsNullOrEmpty(filterParams.Keyword))
             {
-                query = query.Where(r => r.Title.Contains(filterParams.Keyword) 
-                            || r.Description.Contains(filterParams.Keyword));
+                var keywordLower = filterParams.Keyword.ToLower(); 
+                query = query.Where(r => r.Title.ToLower().Contains(keywordLower) 
+                            || r.Description.ToLower().Contains(keywordLower));
             }
 
             // Filter by Publication Date Range
             if (filterParams.StartDate.HasValue)
             {
-                query = query.Where(r => r.PublicationDate >= filterParams.StartDate.Value);
+                query = query.Where(r => r.PublicationDate >= filterParams.StartDate.Value.ToUniversalTime());
             }
             if (filterParams.EndDate.HasValue)
             {
-                query = query.Where(r => r.PublicationDate <= filterParams.EndDate.Value);
+                query = query.Where(r => r.PublicationDate <= filterParams.EndDate.Value.ToUniversalTime());
             }
 
             // Filter by Chef Id

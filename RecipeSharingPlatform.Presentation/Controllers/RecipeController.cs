@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RecipeSharingPlatform.Application.Common.Filters;
 using RecipeSharingPlatform.Application.Common.Models;
 using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
@@ -39,13 +40,26 @@ namespace RecipeSharingPlatform.Presentation.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpGet("get-chef-recipes")]
         public async Task<IActionResult> GetChefRecipes()
         {
             try
             {
                 return Ok(await _recipeService.GetAllRecipesByChefAsync(GetChefId()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("get-filtered-recipes")]
+        public async Task<IActionResult> GetFilteredRecipes([FromQuery] RecipeFilterParams filterParams)
+        {
+            try
+            {
+                return Ok(await _recipeService.GetFilteredRecipesAsync(filterParams));
             }
             catch (Exception ex)
             {

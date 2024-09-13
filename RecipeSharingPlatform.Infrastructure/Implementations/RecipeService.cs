@@ -48,7 +48,9 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
         {
             try
             {
-                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetFilteredRecipesAsync(filterParams));
+                var recipes = await _unitOfWork.Recipe.GetFilteredRecipesAsync(filterParams);
+                var recipeDtos = _mapper.Map<IEnumerable<RecipeDTO>>(recipes);
+                return recipeDtos;
             }
             catch (Exception ex)
             {
