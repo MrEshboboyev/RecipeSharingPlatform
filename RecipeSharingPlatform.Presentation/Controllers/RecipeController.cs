@@ -67,6 +67,20 @@ namespace RecipeSharingPlatform.Presentation.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("get-paginated-recipes")]
+        public async Task<IActionResult> GetPaginatedRecipes([FromQuery] PaginationParameters paginationParameters)
+        {
+            try
+            {
+                return Ok(await _recipeService.GetPagedRecipesAsync(paginationParameters));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [AllowAnonymous]
         [HttpGet("get-recipe-by-id")]
