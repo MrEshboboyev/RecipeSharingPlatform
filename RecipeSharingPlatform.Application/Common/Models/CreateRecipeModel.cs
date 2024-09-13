@@ -1,4 +1,6 @@
-﻿namespace RecipeSharingPlatform.Application.Common.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace RecipeSharingPlatform.Application.Common.Models
 {
     public class CreateRecipeModel
     {
@@ -6,5 +8,6 @@
         public string Description { get; set; }
         public string Ingredients { get; set; }
         public string Instructions { get; set; }
+        public IFormFile ImageFile { get; set; }
     }
 }

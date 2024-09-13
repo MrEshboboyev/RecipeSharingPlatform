@@ -69,7 +69,7 @@ namespace RecipeSharingPlatform.Presentation.Controllers
         #endregion
 
         [HttpPost("create-recipe")]
-        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeModel createRecipeModel)
+        public async Task<IActionResult> CreateRecipe([FromForm] CreateRecipeModel createRecipeModel)
         {
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
@@ -82,7 +82,8 @@ namespace RecipeSharingPlatform.Presentation.Controllers
                     Title = createRecipeModel.Title,
                     Description = createRecipeModel.Description,
                     Ingredients = createRecipeModel.Ingredients,
-                    Instructions = createRecipeModel.Instructions
+                    Instructions = createRecipeModel.Instructions,
+                    ImageFile = createRecipeModel.ImageFile
                 };
 
                 await _recipeService.CreateRecipeAsync(recipeCreateDTO);
