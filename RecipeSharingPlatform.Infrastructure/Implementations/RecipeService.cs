@@ -209,12 +209,15 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
                     r.ChefId == addImageDTO.ChefId)
                     ?? throw new Exception("Recipe not found!");
 
-                // recipe is found, prepare recipe image
+                // create recipe image
+                var imageDTO = await _imageProcessingService.ProcessImageAsync
+                    (addImageDTO.ImageFile, recipeFromDb.Id);
+
                 RecipeImage recipeImage = new()
                 {
                     RecipeId = recipeFromDb.Id,
-                    ImageUrl = addImageDTO.ImageDTO.ImageUrl,
-                    ThumbnailUrl = addImageDTO.ImageDTO.ThumbnailUrl
+                    ImageUrl = imageDTO.ImageUrl,
+                    ThumbnailUrl = imageDTO.ThumbnailUrl
                 };
 
                 // Add the image to the recipe
