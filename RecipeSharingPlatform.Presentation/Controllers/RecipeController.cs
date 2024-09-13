@@ -66,6 +66,21 @@ namespace RecipeSharingPlatform.Presentation.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [AllowAnonymous]
+        [HttpGet("get-recipe-by-id")]
+        public async Task<IActionResult> GetRecipeById(Guid recipeId)
+        {
+            try
+            {
+                return Ok(await _recipeService.GetRecipeByIdAsync(recipeId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         #endregion
 
         [HttpPost("create-recipe")]
