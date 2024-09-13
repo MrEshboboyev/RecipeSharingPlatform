@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipeSharingPlatform.Application.Services.Interfaces;
 
 namespace RecipeSharingPlatform.Presentation.Controllers
 {
@@ -6,25 +7,19 @@ namespace RecipeSharingPlatform.Presentation.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IImageService _imageService;
 
-        public ImageController(IWebHostEnvironment webHostEnvironment)
+        public ImageController(IImageService imageService)
         {
-            _webHostEnvironment = webHostEnvironment;
+            _imageService = imageService;
         }
 
         [HttpGet("download-image/{fileName}")]
-        public IActionResult DownloadImage(string fileName)
+        public async Task<IActionResult> DownloadImage(string fileName)
         {
             try
             {
-                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", fileName);
-
-                if (!System.IO.File.Exists(filePath)) 
-                    return NotFound("Image not found!");
-
-                // Read the file and return it as a FileResult
-                var fileBytes = System.IO.File.ReadAllBytes(filePath);
+                var fileBytes = await _imageService.GetImageAsync(fileName);
                 var contentType = "application/octet-stream";
                 return File(fileBytes, contentType, fileName);
 

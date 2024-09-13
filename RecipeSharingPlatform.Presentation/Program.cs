@@ -95,6 +95,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRecipeService, RecipeService>();
 builder.Services.AddScoped<IRecipeLabelService, RecipeLabelService>();
 builder.Services.AddScoped<IImageProcessingService, ImageProcessingService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 

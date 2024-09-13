@@ -6,13 +6,13 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
 {
     public class ImageService : IImageService
     {
-        private readonly IImageRepository _imageRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly string _imageFolderPath;
 
         public ImageService(IConfiguration configuration,
-            IImageRepository imageRepository)
+            IUnitOfWork unitOfWork)
         {
-            _imageRepository = imageRepository;
+            _unitOfWork = unitOfWork;
             _imageFolderPath = configuration["ImageSettings:ImageFolderPath"] ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
         }
 
@@ -22,10 +22,10 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             {
                 var filePath = Path.Combine(_imageFolderPath, fileName);
 
-                if (!_imageRepository.FileExists(filePath))
+                if (!_unitOfWork.Image.FileExists(filePath))
                     throw new Exception("Image not found!");
 
-                return await _imageRepository.GetImageAsync(filePath);
+                return await _unitOfWork.Image.GetImageAsync(filePath);
             }
             catch (Exception ex)
             {

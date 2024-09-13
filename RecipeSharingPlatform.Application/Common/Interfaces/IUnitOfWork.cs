@@ -5,6 +5,7 @@
         IRecipeRepository Recipe { get; }
         IRecipeImageRepository RecipeImage { get; }
         IRecipeLabelRepository RecipeLabel { get; }
+        IImageRepository Image { get; }
 
         void Save();
     }

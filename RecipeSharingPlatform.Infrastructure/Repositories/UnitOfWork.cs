@@ -9,6 +9,7 @@ namespace RecipeSharingPlatform.Infrastructure.Repositories
         public IRecipeRepository Recipe { get; private set; }
         public IRecipeImageRepository RecipeImage { get; private set; }
         public IRecipeLabelRepository RecipeLabel { get; private set; }
+        public IImageRepository Image { get; private set; }
 
         public UnitOfWork(AppDbContext db)
         {
@@ -16,6 +17,7 @@ namespace RecipeSharingPlatform.Infrastructure.Repositories
             Recipe = new RecipeRepository(db);
             RecipeImage = new RecipeImageRepository(db);
             RecipeLabel = new RecipeLabelRepository(db);
+            Image = new ImageRepository();
         }
 
         public void Save()
