@@ -1,6 +1,6 @@
 ﻿namespace RecipeSharingPlatform.Application.Common.Filters
 {
-    public class RecipeFilterParam
+    public class RecipeFilterParams
     {
         public string Keyword { get; set; }
         public DateTime? StartDate { get; set; }

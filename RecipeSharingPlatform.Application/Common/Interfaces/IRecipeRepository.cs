@@ -1,4 +1,5 @@
-﻿using RecipeSharingPlatform.Domain.Entities;
+﻿using RecipeSharingPlatform.Application.Common.Filters;
+using RecipeSharingPlatform.Domain.Entities;
 
 namespace RecipeSharingPlatform.Application.Common.Interfaces
 {
@@ -6,5 +7,6 @@ namespace RecipeSharingPlatform.Application.Common.Interfaces
     {
         void Update(Recipe recipe);
         Task AddLabelToRecipeAsync(Guid recipeId, Guid labelId);
+        Task<IEnumerable<Recipe>> GetFilteredRecipesAsync(RecipeFilterParams filterParams);
     }
 }
