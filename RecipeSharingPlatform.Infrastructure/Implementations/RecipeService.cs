@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using RecipeSharingPlatform.Application.Common.Filters;
 using RecipeSharingPlatform.Application.Common.Interfaces;
 using RecipeSharingPlatform.Application.DTOs;
 using RecipeSharingPlatform.Application.Services.Interfaces;
 using RecipeSharingPlatform.Domain.Entities;
-using System.Collections.Generic;
 
 namespace RecipeSharingPlatform.Infrastructure.Implementations
 {
@@ -37,6 +37,18 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
             try
             {
                 return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetAll(r => r.ChefId == chefId, includeProperties: "Labels"));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<IEnumerable<RecipeDTO>> GetFilteredRecipesAsync(RecipeFilterParams filterParams)
+        {
+            try
+            {
+                return _mapper.Map<IEnumerable<RecipeDTO>>(_unitOfWork.Recipe.GetFilteredRecipesAsync(filterParams));
             }
             catch (Exception ex)
             {

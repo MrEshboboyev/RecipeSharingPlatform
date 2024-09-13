@@ -1,5 +1,5 @@
-﻿using RecipeSharingPlatform.Application.DTOs;
-using RecipeSharingPlatform.Domain.Entities;
+﻿using RecipeSharingPlatform.Application.Common.Filters;
+using RecipeSharingPlatform.Application.DTOs;
 
 namespace RecipeSharingPlatform.Application.Services.Interfaces
 {
@@ -7,6 +7,7 @@ namespace RecipeSharingPlatform.Application.Services.Interfaces
     {
         Task<IEnumerable<RecipeDTO>> GetAllRecipesAsync();
         Task<IEnumerable<RecipeDTO>> GetAllRecipesByChefAsync(string chefId);
+        Task<IEnumerable<RecipeDTO>> GetFilteredRecipesAsync(RecipeFilterParams filterParams);
         Task CreateRecipeAsync(RecipeCreateDTO recipeCreateDTO);  
         Task UpdateRecipeAsync(RecipeUpdateDTO recipeUpdateDTO);  
         Task DeleteRecipeAsync(RecipeDeleteDTO recipeDeleteDTO);  
