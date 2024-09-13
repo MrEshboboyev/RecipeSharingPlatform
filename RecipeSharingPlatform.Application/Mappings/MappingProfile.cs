@@ -13,6 +13,7 @@ namespace RecipeSharingPlatform.Application.Mappings
             .ForMember(dest => dest.Labels, opt => opt.MapFrom(src => src.Labels));     // Example
 
             CreateMap<RecipeLabel, LabelDTO>();
+            CreateMap<RecipeImage, ImageDTO>();
         }
     }
 }

@@ -11,5 +11,6 @@
         public string ChefId { get; set; }
         public string ChefName { get; set; }
         public List<LabelDTO> Labels { get; set; }
+        public List<ImageDTO> Images { get; set; }
     }
 }

@@ -60,6 +60,18 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<RecipeDTO> GetRecipeByIdAsync(Guid recipeId)
+        {
+            try
+            {
+                return _mapper.Map<RecipeDTO>(_unitOfWork.Recipe.Get(r => r.Id == recipeId, includeProperties: "Labels,Images"));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         #endregion
 
 
