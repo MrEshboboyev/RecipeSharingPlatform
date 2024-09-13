@@ -1,4 +1,6 @@
-﻿namespace RecipeSharingPlatform.Application.DTOs
+﻿using Microsoft.AspNetCore.Http;
+
+namespace RecipeSharingPlatform.Application.DTOs
 {
     public class RecipeCreateDTO
     {
@@ -7,5 +9,6 @@
         public string Ingredients { get; set; }
         public string Instructions { get; set; }
         public string ChefId { get; set; }
+        public IFormFile ImageFile { get; set; }
     }
 }

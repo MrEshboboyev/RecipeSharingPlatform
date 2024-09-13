@@ -12,12 +12,15 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
         // inject IUnitOfWork
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IImageProcessingService _imageProcessingService;
 
         public RecipeService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper,
+            IImageProcessingService imageProcessingService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _imageProcessingService = imageProcessingService;
         }
         #region Get Recipes
         public async Task<IEnumerable<RecipeDTO>> GetAllRecipesAsync()
@@ -76,6 +79,20 @@ namespace RecipeSharingPlatform.Infrastructure.Implementations
 
                 // adding
                 _unitOfWork.Recipe.Add(recipeForDb);
+
+                // create recipe image
+                var imageDTO = await _imageProcessingService.ProcessImageAsync
+                    (recipeCreateDTO.ImageFile, recipeForDb.Id);
+
+                RecipeImage recipeImage = new()
+                {
+                    ImageUrl = imageDTO.ImageUrl,
+                    RecipeId = recipeForDb.Id,
+                    ThumbnailUrl = imageDTO.ThumbnailUrl
+                };
+
+                // adding image to db
+                _unitOfWork.RecipeImage.Add(recipeImage);
 
                 // save
                 _unitOfWork.Save();
